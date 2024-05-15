@@ -1,0 +1,41 @@
+package main
+
+import (
+	"fmt"
+	"main/util"
+)
+
+func main() {
+	for {
+		var opcao int
+		fmt.Println("Escolha sua opção")
+		fmt.Scan(&opcao)
+
+		switch opcao {
+		case 1:
+
+			var aluno util.Estudante1
+
+			fmt.Println("Digite o nome do aluno")
+			fmt.Scan(&aluno.Nome)
+
+			fmt.Println("Digite a idade do aluno")
+			fmt.Scan(&aluno.Idade)
+
+			fmt.Println("Digite a nota final do aluno")
+			fmt.Scan(&aluno.Nota)
+
+			aluno.Add()
+			break
+		case 2:
+			melhor := util.ListarMaiorNota(util.Estudantes)
+			for _, estudante := range melhor {
+				fmt.Println("Aluno com Maior Nota: ", estudante.Nome, estudante.Nota)
+			}
+			break
+
+		}
+
+	}
+
+}
