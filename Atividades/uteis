@@ -1,0 +1,76 @@
+package funcoes
+
+import "fmt"
+
+var Alunos []Aluno
+
+type Aluno struct {
+	Nome      string
+	Matricula float64
+	Notas     [4]float64
+	Media     float64
+}
+
+func (a Aluno) AddAluno() {
+	Alunos = append(Alunos, a)
+
+}
+
+func Menu() {
+	fmt.Println("Bem-Vindo(a), ao portal de Notas  Etech")
+	fmt.Println("1. Adicionar Aluno")
+	fmt.Println("2. Listar Alunos com sua média")
+	fmt.Println("3. Listar situação do aluno aprovado ou reprovado")
+	fmt.Println("3. Ordenar alunos por nota")
+	fmt.Println("0. Sair do Porta")
+}
+
+func Listar() {
+	for _, aluno := range Alunos {
+		situacao := SituacaoAluno(aluno.Media)
+		fmt.Println("Aluno: ", aluno.Nome,
+			"Matrícula", aluno.Matricula,
+			"Notas", aluno.Notas,
+			"Média", aluno.Media,
+			situacao)
+	}
+}
+func CalcularMedia(notas [4]float64) float64 {
+	var soma float64
+	for _, nota := range notas {
+		soma = soma + nota
+
+	}
+	media := soma / 4.0
+	return media
+}
+func SituacaoAluno(media float64) string {
+	if media >= 7.0 {
+		return "Aprovado"
+	} else {
+		return "Reprovado"
+	}
+}
+
+func Bubble() {
+	n := len(Alunos)
+	fmt.Println("Executando Bubble Sort...")
+	for i := 0; i < n-1; i++ {
+		for j := 0; j < n-1-i; j++ {
+			if Alunos[j].Media > Alunos[j+1].Media {
+				Alunos[j], Alunos[j+1] = Alunos[j+1], Alunos[j]
+			}
+		}
+	}
+	fmt.Println("Bubble Sort concluído.")
+}
+
+func ListarOrdenado() {
+	Bubble() // Chama o Bubble Sort antes de listar ordenado
+	fmt.Println("Alunos em ordem crescente de média:")
+	for _, aluno := range Alunos {
+		situacao := SituacaoAluno(aluno.Media)
+		fmt.Printf("Aluno: %s, Matrícula: %.0f, Notas: %.2f, %.2f, %.2f, %.2f, Média: %.2f, Situação: %s\n",
+			aluno.Nome, aluno.Matricula, aluno.Media, situacao)
+	}
+}
