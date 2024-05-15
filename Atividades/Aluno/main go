@@ -1,0 +1,51 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"main/funcoes"
+	"os"
+)
+
+func main() {
+	for {
+		funcoes.Menu()
+		var opcao int
+		fmt.Println("Digite a opção desejada: ")
+		fmt.Scan(&opcao)
+
+		switch opcao {
+		case 1:
+			var aluno funcoes.Aluno
+
+			fmt.Println("Adicionar nome do aluno: ")
+			scanner := bufio.NewScanner(os.Stdin)
+			scanner.Scan()
+			aluno.Nome = scanner.Text()
+
+			fmt.Println("Digite a matricula dos alunos")
+			fmt.Scan(&aluno.Matricula)
+
+			fmt.Println("Digite a 4 notas dos alunos: ")
+			fmt.Scan(&aluno.Notas)
+
+			fmt.Println("Digite as 4 notas do aluno: ")
+			for i := 0; i < 4; i++ {
+				fmt.Printf("Nota %d: ", i+1)
+				fmt.Scan(&aluno.Notas[i])
+			}
+			aluno.Media = funcoes.CalcularMedia(aluno.Notas)
+			aluno.AddAluno()
+
+		case 2:
+			funcoes.Listar()
+			break
+		case 3:
+			funcoes.ListarOrdenado()
+
+			if opcao == 4 {
+				break
+			}
+		}
+	}
+}
